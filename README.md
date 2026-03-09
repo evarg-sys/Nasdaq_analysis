@@ -32,20 +32,6 @@ Regime filtering lifts the Sharpe ratio by 73% and cuts maximum drawdown by two-
 
 Results hold across momentum lookback windows (126d, 189d, 252d) and volatility threshold quantiles (Q60, Q70, Q80).
 
-## Repository Structure
-
-```
-├── data/
-├── notebooks/
-├── src/
-│   ├── eda.py
-│   ├── hmm_regimes.py
-│   ├── garch_forecast.py
-│   └── strategy.py
-├── figures/
-└── paper/
-    └── paper.tex
-```
 
 ## Requirements
 
