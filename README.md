@@ -1,7 +1,6 @@
-# Nasdaq_analysis
 # Stylized Facts & Regime-Filtered Momentum
 
-A quantitative research project analysing 6 years of daily equity log returns (March 2020 – February 2026) and using empirical market properties to build a risk-aware momentum strategy.
+A quantitative research project analysing 6 years of daily Nasdaq log returns (March 2020 – February 2026) and using empirical market properties to build a risk-aware momentum strategy.
 
 ## Overview
 
@@ -22,6 +21,56 @@ This project documents four canonical stylized facts of financial returns and tr
 
 Regime filtering lifts the Sharpe ratio by 73% and cuts maximum drawdown by two-thirds relative to buy-and-hold.
 
+## How to Run
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/evarg-sys/Nasdaq_analysis.git
+cd Nasdaq_analysis
+```
+
+**2. Install dependencies**
+```bash
+pip install yfinance pandas numpy matplotlib seaborn scipy hmmlearn arch tabulate
+```
+Python 3.9 or higher is recommended.
+
+**3. Run the full pipeline**
+```bash
+python analysis.py
+```
+
+This will automatically:
+- Download Nasdaq (`^IXIC`) data from Yahoo Finance (2000–2026)
+- Run EDA on the most recent 1,500 trading days
+- Fit the HMM regime model and GARCH(1,1) volatility model
+- Backtest all three strategies and run robustness checks
+- Save all 7 plots to a `plot/` folder in the project directory
+
+**4. Configuration (top of the script)**
+
+| Variable | Default | Description |
+|---|---|---|
+| `MAX_ROWS` | `1500` | Number of most recent trading days to use |
+| `RUN_FULL_PIPELINE` | `True` | Set to `False` for EDA-only quick run |
+| `SHOW_PLOTS` | `False` | Set to `True` to display plots interactively |
+| `PLOT_DIR` | `"plot"` | Directory where figures are saved |
+
+**5. Output**
+
+All figures are saved to `plot/`:
+```
+plot/
+├── 01_heavy_tails_hist_qq.png
+├── 02_returns_and_abs_returns.png
+├── 03_abs_returns_acf.png
+├── 04_drawdowns.png
+├── 05_hmm_regimes_over_price.png
+├── 06_garch_vs_realized_vol.png
+└── 07_equity_curves.png
+```
+Performance tables are printed to the terminal.
+
 ## Methods
 
 - **HMM**: Two-state Gaussian Hidden Markov Model estimated via Baum-Welch; states decoded with Viterbi.
@@ -31,16 +80,8 @@ Regime filtering lifts the Sharpe ratio by 73% and cuts maximum drawdown by two-
 ## Robustness
 
 Results hold across momentum lookback windows (126d, 189d, 252d) and volatility threshold quantiles (Q60, Q70, Q80).
-
-
-## Requirements
-
 ```
-python >= 3.9
-numpy, pandas, matplotlib
-hmmlearn
-arch
-scipy, statsmodels
-```
-##paper
-find paper called results
+
+## Paper
+
+A full academic write-up is available in as results.pdf, compiled with LaTeX and compatible with Overleaf.
